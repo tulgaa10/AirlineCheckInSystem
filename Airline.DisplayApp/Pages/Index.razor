@@ -1,0 +1,57 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager Navigation
+
+<h3>Flight Status Board</h3>
+
+@if (flightUpdates == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Flight</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flight in flightUpdates)
+            {
+                <tr>
+                    <td>@flight.FlightNumber</td>
+                    <td>@flight.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private HubConnection? hubConnection;
+    private List<FlightUpdateDto> flightUpdates = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("https://localhost:7257/flighthub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<List<FlightUpdateDto>>("ReceiveFlightUpdates", (updates) =>
+        {
+            flightUpdates = updates;
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    public class FlightUpdateDto
+    {
+        public string FlightNumber { get; set; } = "";
+        public string Status { get; set; } = "";
+    }
+}

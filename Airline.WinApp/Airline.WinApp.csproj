@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Airline.BlazorApp\Airline.BlazorApp.csproj" />
+    <ProjectReference Include="..\Airline.DataAccess\Airline.DataAccess.csproj" />
+    <ProjectReference Include="..\Airline.Server\Airline.Server.csproj" />
+    <ProjectReference Include="..\Airline.SocketServer\Airline.SocketServer.csproj" />
+  </ItemGroup>
+
+</Project>
