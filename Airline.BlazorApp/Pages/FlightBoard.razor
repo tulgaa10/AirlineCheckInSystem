@@ -1,5 +1,6 @@
-﻿@page "/flight-board"
+﻿@page "/flightstatusdisplay"
 @inject FlightHubService FlightHub
+@implements IDisposable
 
 <h3>Flight Status Board</h3>
 
@@ -14,6 +15,7 @@ else
             <tr>
                 <th>Flight Number</th>
                 <th>Status</th>
+                <th>Last Updated</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +24,7 @@ else
                 <tr>
                     <td>@flight.FlightNumber</td>
                     <td>@flight.Status</td>
+                    <td>@DateTime.Now.ToString("HH:mm:ss")</td>
                 </tr>
             }
         </tbody>
@@ -30,15 +33,26 @@ else
 
 @code {
     private List<FlightStatusUpdateDto>? updates;
+    private bool isDisposed = false;
 
     protected override async Task OnInitializedAsync()
     {
-        FlightHub.OnFlightStatusUpdate += list =>
-        {
-            updates = list;
-            InvokeAsync(StateHasChanged);
-        };
-
+        FlightHub.OnFlightStatusUpdate += HandleFlightStatusUpdate;
         await FlightHub.StartAsync();
+    }
+
+    private void HandleFlightStatusUpdate(List<FlightStatusUpdateDto> list)
+    {
+        if (isDisposed) return;
+
+        updates = list;
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        isDisposed = true;
+        FlightHub.OnFlightStatusUpdate -= HandleFlightStatusUpdate;
+        _ = FlightHub.StopAsync();
     }
 }

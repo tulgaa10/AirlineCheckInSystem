@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 
-public class FlightHubService
+public class FlightHubService : IAsyncDisposable
 {
     private readonly HubConnection _hubConnection;
     public event Action<List<FlightStatusUpdateDto>>? OnFlightStatusUpdate;
@@ -26,6 +26,13 @@ public class FlightHubService
 
     public async Task StopAsync()
     {
-        await _hubConnection.StopAsync();
+        if (_hubConnection.State != HubConnectionState.Disconnected)
+            await _hubConnection.StopAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await StopAsync();
+        await _hubConnection.DisposeAsync();
     }
 }

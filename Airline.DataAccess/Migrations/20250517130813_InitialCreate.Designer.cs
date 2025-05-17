@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Airline.DataAccess.Migrations
 {
     [DbContext(typeof(AirlineDbContext))]
-    [Migration("20250516161518_InitialCreate")]
+    [Migration("20250517130813_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -30,12 +30,16 @@ namespace Airline.DataAccess.Migrations
 
                     b.Property<string>("FlightNumber")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FlightNumber")
+                        .IsUnique();
 
                     b.ToTable("Flights");
                 });
@@ -51,10 +55,12 @@ namespace Airline.DataAccess.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PassportNumber")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -86,6 +92,7 @@ namespace Airline.DataAccess.Migrations
 
                     b.Property<string>("SeatNumber")
                         .IsRequired()
+                        .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -119,7 +126,8 @@ namespace Airline.DataAccess.Migrations
 
                     b.HasOne("Passenger", "Passenger")
                         .WithOne("Seat")
-                        .HasForeignKey("Seat", "PassengerId");
+                        .HasForeignKey("Seat", "PassengerId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Flight");
 

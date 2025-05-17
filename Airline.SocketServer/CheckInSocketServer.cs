@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Airline.DataAccess;
 
 public class CheckInSocketServer
-{
+{   
     private readonly AirlineDbContext _dbContext;
     private readonly TcpListener _listener;
 

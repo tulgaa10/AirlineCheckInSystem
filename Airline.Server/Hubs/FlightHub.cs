@@ -17,6 +17,13 @@ public class FlightHub : Hub
                 Status = f.Status.ToString()
             })
             .ToListAsync();
+
         await Clients.All.SendAsync("ReceiveFlightUpdates", updates);
+    }
+
+    public override async Task OnConnectedAsync()
+    {
+        await BroadcastFlightStatuses();
+        await base.OnConnectedAsync();
     }
 }

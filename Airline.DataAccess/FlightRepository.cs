@@ -14,7 +14,7 @@ public class FlightRepository : IFlightRepository
         return await _context.Flights.Include(f => f.Seats).Include(f => f.Passengers).ToListAsync();
     }
 
-    public async Task<Flight> GetByIdAsync(int id)
+    public async Task<Flight?> GetByIdAsync(int id)
     {
         return await _context.Flights.Include(f => f.Seats).Include(f => f.Passengers).FirstOrDefaultAsync(f => f.Id == id);
     }

@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile (1)",
+    "Projects": [
+      {
+        "Path": "Airline.Server\\Airline.Server.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Airline.WinApp\\Airline.WinApp.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Airline.BlazorApp\\Airline.BlazorApp.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
