@@ -1,38 +1,51 @@
+/// <summary>
+/// Nislegiin Burtgeliin Programmiin Ündsen Angilal.
+/// Ene program ni nislegiin burtgel hiih systemiin server taliig ehluulj, 
+/// uildverlel, uil ajillagaag todorhoildog.
+/// </summary>
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// container luu services nemeh
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+
+        // JSON neriig camelCase bolgoj haruulah
         options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
     });
+
+// API-d swagger uusgeh
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure DbContext
+// db iin holboltuudiig tohiruulah
 builder.Services.AddDbContext<AirlineDbContext>(options =>
+    // Test hiih bolood hyzgaarlalt shalgahin tuld sanah oig ashiglah
     options.UseInMemoryDatabase("AirlineDatabase"));
 
-// Add SignalR with response compression
+// Real-time hariltsaanii SignalR nemeh
 builder.Services.AddSignalR();
+
+// Hariultin hemjeeg bagsgahin tuld Response compression ashiglah
 builder.Services.AddResponseCompression(opts =>
 {
     opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
         new[] { "application/octet-stream" });
 });
 
-// Register repositories
+// Repository pattern ashiglan ogogdol ruu handah
 builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 
-// Configure CORS for Blazor WASM client
+// Blazor-WASM client-tai holbogdohin tuld CORS tohiruulga hiih
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("BlazorPolicy", policy =>
     {
+        // Test hiih uyd ali ch erh zovshooroh
         policy.AllowAnyOrigin()
               .AllowAnyMethod()
               .AllowAnyHeader();
@@ -41,13 +54,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// HTTP hüselt durem tohiruulah
 if (app.Environment.IsDevelopment())
 {
+    // swagger ashiglah
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    // Seed the database with some sample data
+    // seed data g db d oruulah
     using (var scope = app.Services.CreateScope())
     {
         var dbContext = scope.ServiceProvider.GetRequiredService<AirlineDbContext>();
@@ -55,26 +69,38 @@ if (app.Environment.IsDevelopment())
     }
 }
 
+// Hariu ogogdliig shahhin tuld Response compression ashiglah
 app.UseResponseCompression();
+
+// HTTPS ruu chigluuleh
 app.UseHttpsRedirection();
 
-// Apply CORS before authorization
+// Erhiin shinalganaas omno CORS-iig ashiglah
 app.UseCors("BlazorPolicy");
 
+// Erh zovshoorol shalgah
 app.UseAuthorization();
 
+// Controller-uudiin zam zaahin tohiruulga
 app.MapControllers();
+
+// SignalR Hub-iin zam tohiruulga
 app.MapHub<FlightHub>("/flighthub");
 
 app.Run();
 
-// Method to seed initial data
+/// <summary>
+/// Ene funkts ni niisleluud, suudaluud, zorchinii tuhai jishee medeellig
+/// ogogdliin sand oruuldag.
+/// </summary>
+/// <param name="context"></param>
 void SeedData(AirlineDbContext context)
 {
-    // Only seed if no flights exist
+    // Niisleguud bga esehiig shalgah
     if (!context.Flights.Any())
     {
-        // Create a sample flight
+        // Jishee niisleg uusgeh
+        // [Create sample flights]
         var flight1 = new Flight
         {
             FlightNumber = "oo000",
@@ -92,7 +118,7 @@ void SeedData(AirlineDbContext context)
         context.Flights.AddRange(flight1, flight2);
         context.SaveChanges();
 
-        // Create seats for flight 1
+        // Ehnii niislegiin suudaluudiig uusgeh
         var seats1 = new List<Seat>
         {
             new Seat { SeatNumber = "pp", IsAssigned = false, FlightId = flight1.Id },
@@ -100,7 +126,8 @@ void SeedData(AirlineDbContext context)
             new Seat { SeatNumber = "uu", IsAssigned = false, FlightId = flight1.Id },
             new Seat { SeatNumber = "qq", IsAssigned = false, FlightId = flight1.Id }
         };
-        
+
+        // Hoyrdahi niislegiin suudaluudiig uusgeh
         var seats2 = new List<Seat>
         {
             new Seat { SeatNumber = "rr", IsAssigned = false, FlightId = flight2.Id },
@@ -112,7 +139,7 @@ void SeedData(AirlineDbContext context)
         context.Seats.AddRange(seats1);
         context.Seats.AddRange(seats2);
 
-        // Create a sample passenger
+        // Jishee zochin uusgeh
         var passenger1 = new Passenger
         {
             FullName = "bataa",
@@ -126,10 +153,10 @@ void SeedData(AirlineDbContext context)
             FlightId = flight1.Id
         };
 
-
         context.Passengers.Add(passenger1);
         context.Passengers.Add(passenger2);
 
+        // Ogogdol hadgalah
         context.SaveChanges();
     }
 }

@@ -43,7 +43,7 @@
             // txtPassport
             // 
             txtPassport.Location = new Point(33, 52);
-            txtPassport.Margin = new Padding(2, 2, 2, 2);
+            txtPassport.Margin = new Padding(2);
             txtPassport.Name = "txtPassport";
             txtPassport.PlaceholderText = "txtPassport";
             txtPassport.Size = new Size(249, 27);
@@ -53,7 +53,7 @@
             // 
             btnSearch.BackColor = Color.DarkGray;
             btnSearch.Location = new Point(33, 120);
-            btnSearch.Margin = new Padding(2, 2, 2, 2);
+            btnSearch.Margin = new Padding(2);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(122, 42);
             btnSearch.TabIndex = 1;
@@ -64,8 +64,8 @@
             // lstSeats
             // 
             lstSeats.FormattingEnabled = true;
-            lstSeats.Location = new Point(443, 52);
-            lstSeats.Margin = new Padding(2, 2, 2, 2);
+            lstSeats.Location = new Point(560, 52);
+            lstSeats.Margin = new Padding(2);
             lstSeats.Name = "lstSeats";
             lstSeats.Size = new Size(376, 524);
             lstSeats.TabIndex = 2;
@@ -74,7 +74,7 @@
             // 
             btnAssign.BackColor = SystemColors.ActiveBorder;
             btnAssign.Location = new Point(33, 181);
-            btnAssign.Margin = new Padding(2, 2, 2, 2);
+            btnAssign.Margin = new Padding(2);
             btnAssign.Name = "btnAssign";
             btnAssign.Size = new Size(122, 36);
             btnAssign.TabIndex = 3;
@@ -85,7 +85,7 @@
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new Point(756, 11);
+            lblStatus.Location = new Point(347, 59);
             lblStatus.Margin = new Padding(2, 0, 2, 0);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(50, 20);
@@ -96,7 +96,7 @@
             // 
             btnPrint.BackColor = SystemColors.ActiveBorder;
             btnPrint.Location = new Point(33, 242);
-            btnPrint.Margin = new Padding(2, 2, 2, 2);
+            btnPrint.Margin = new Padding(2);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new Size(122, 52);
             btnPrint.TabIndex = 5;
@@ -107,8 +107,8 @@
             // cmbStatus
             // 
             cmbStatus.FormattingEnabled = true;
-            cmbStatus.Location = new Point(192, 280);
-            cmbStatus.Margin = new Padding(2, 2, 2, 2);
+            cmbStatus.Location = new Point(347, 149);
+            cmbStatus.Margin = new Padding(2);
             cmbStatus.Name = "cmbStatus";
             cmbStatus.Size = new Size(150, 28);
             cmbStatus.TabIndex = 6;
@@ -116,19 +116,20 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(192, 348);
-            btnUpdate.Margin = new Padding(2, 2, 2, 2);
+            btnUpdate.BackColor = Color.Bisque;
+            btnUpdate.Location = new Point(194, 242);
+            btnUpdate.Margin = new Padding(2);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(90, 79);
+            btnUpdate.Size = new Size(90, 52);
             btnUpdate.TabIndex = 7;
-            btnUpdate.Text = "btnUpdate";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click_1;
             // 
             // btnDebug
             // 
             btnDebug.Location = new Point(192, 120);
-            btnDebug.Margin = new Padding(2, 2, 2, 2);
+            btnDebug.Margin = new Padding(2);
             btnDebug.Name = "btnDebug";
             btnDebug.Size = new Size(92, 42);
             btnDebug.TabIndex = 8;
@@ -139,8 +140,8 @@
             // cmbFlights
             // 
             cmbFlights.FormattingEnabled = true;
-            cmbFlights.Location = new Point(192, 186);
-            cmbFlights.Margin = new Padding(2, 2, 2, 2);
+            cmbFlights.Location = new Point(347, 97);
+            cmbFlights.Margin = new Padding(2);
             cmbFlights.Name = "cmbFlights";
             cmbFlights.Size = new Size(150, 28);
             cmbFlights.TabIndex = 9;
@@ -150,6 +151,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(1044, 659);
             Controls.Add(cmbFlights);
             Controls.Add(btnDebug);
@@ -161,7 +163,7 @@
             Controls.Add(lstSeats);
             Controls.Add(btnSearch);
             Controls.Add(txtPassport);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
