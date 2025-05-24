@@ -31,7 +31,7 @@ namespace Airline.WinApp
             InitializeComponent();
 
             // API-iin hayag todorhoiloh
-            _http.BaseAddress = new Uri("https://localhost:7257/api/");
+            _http.BaseAddress = new Uri("http://192.168.137.1:7257/api/");
 
             // Aldaa garsniig barihaad haruulah event
             AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
@@ -72,7 +72,7 @@ namespace Airline.WinApp
             {
                 // SignalR holbolt uusgeh
                 _hub = new HubConnectionBuilder()
-                    .WithUrl("https://localhost:7257/flighthub")
+                    .WithUrl("http://192.168.137.1:7257/flighthub")
                     .WithAutomaticReconnect()
                     .Build();
 

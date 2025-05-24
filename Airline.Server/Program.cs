@@ -103,14 +103,14 @@ void SeedData(AirlineDbContext context)
         // [Create sample flights]
         var flight1 = new Flight
         {
-            FlightNumber = "oo000",
+            FlightNumber = "Flight1",
             DepartureTime = DateTime.Now.AddHours(2),
             Status = FlightStatus.Registering
         };
 
         var flight2 = new Flight
         {
-            FlightNumber = "pp111",
+            FlightNumber = "Flight2",
             DepartureTime = DateTime.Now.AddHours(3),
             Status = FlightStatus.Boarding
         };
@@ -121,19 +121,19 @@ void SeedData(AirlineDbContext context)
         // Ehnii niislegiin suudaluudiig uusgeh
         var seats1 = new List<Seat>
         {
-            new Seat { SeatNumber = "pp", IsAssigned = false, FlightId = flight1.Id },
-            new Seat { SeatNumber = "aa", IsAssigned = false, FlightId = flight1.Id },
-            new Seat { SeatNumber = "uu", IsAssigned = false, FlightId = flight1.Id },
-            new Seat { SeatNumber = "qq", IsAssigned = false, FlightId = flight1.Id }
+            new Seat { SeatNumber = "seat1", IsAssigned = false, FlightId = flight1.Id },
+            new Seat { SeatNumber = "seat2", IsAssigned = false, FlightId = flight1.Id },
+            new Seat { SeatNumber = "seat3", IsAssigned = false, FlightId = flight1.Id },
+            new Seat { SeatNumber = "seat4", IsAssigned = false, FlightId = flight1.Id }
         };
 
         // Hoyrdahi niislegiin suudaluudiig uusgeh
         var seats2 = new List<Seat>
         {
-            new Seat { SeatNumber = "rr", IsAssigned = false, FlightId = flight2.Id },
-            new Seat { SeatNumber = "tt", IsAssigned = false, FlightId = flight2.Id },
-            new Seat { SeatNumber = "yy", IsAssigned = false, FlightId = flight2.Id },
-            new Seat { SeatNumber = "uu", IsAssigned = false, FlightId = flight2.Id }
+            new Seat { SeatNumber = "seat1", IsAssigned = false, FlightId = flight2.Id },
+            new Seat { SeatNumber = "seat2", IsAssigned = false, FlightId = flight2.Id },
+            new Seat { SeatNumber = "seat3", IsAssigned = false, FlightId = flight2.Id },
+            new Seat { SeatNumber = "seat4", IsAssigned = false, FlightId = flight2.Id }
         };
 
         context.Seats.AddRange(seats1);
